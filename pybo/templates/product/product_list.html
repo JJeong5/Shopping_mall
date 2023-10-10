@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<!-- Header-->
+<header class="bg-dark py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">EzyShop</h1>
+            <p class="lead fw-normal text-white-50 mb-0"></p>
+        </div>
+    </div>
+</header>
+
+<!-- Search Bar -->
+<div class="input-group mt-5 justify-content-center">
+    <input type="text" class="w-50" id="searchInput" placeholder="상품을 검색하세요">
+    <div class="input-group-append">
+        <button class="btn btn-primary" id="searchButton" type="button">검색</button>
+    </div>
+</div>
+
+<!-- 메뉴추가-->
+{%if g.user.id==1%}
+<a href="{{ url_for('product.create') }}" class="btn btn-primary">상품 추가하기</a>
+{%endif%}
+<!-- 질문 목록 -->
+<section class="py-2">
+    <div class="container px-4 px-lg-5 mt-5">
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            {% if product_list %}
+            {% for product in product_list %}
+            <div class="col mb-5">
+                <div class="card h-100">
+                    <!-- Product image-->
+                    <a href="{{ url_for('product.detail', product_id=product.id) }}">
+                        <img class="card-img-top" src="/static/image/{{product.image}}" alt="..."
+                            style="width: 260px; height: 200px;" />
+                    </a>
+                    <!-- Product details-->
+                    <div class="card-body p-4">
+                        <div class="text-center">
+                            <!-- Product name-->
+                            <h5 class="fw-bolder">{{ product.name }}</h5>
+                            <!-- Product price-->
+                            {{ product.price }}
+                        </div>
+                    </div>
+                    <!-- Product actions-->
+                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                        <div class="text-center">
+
+                            <form action="{{ url_for('product.add_to_cart') }}" method="post">
+                                <input type="hidden" name="product_id" value="{{ product.id }}">
+                                <input type="hidden" name="price" value="{{ product.price }}">
+                                <div class="row">
+                                    <div class="col">
+                                        <input type="number" name="quantity" value="1" min="1"
+                                            class="form-control w-100" style="overflow: hidden;"
+                                            onmouseover="this.style.overflow = 'auto';"
+                                            onmouseout="this.style.overflow = 'hidden';">
+                                    </div>
+                                    <div class="col">
+                                        {%if g.user.id != 1%}
+                                        <button type="submit" class="btn btn-outline-dark mt-auto">장바구니 담기</button>
+                                        {%endif%}
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            {% endfor %}
+
+            {% endif %}
+
+        </div>
+    </div>
+</section>
+
+
+
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="js/scripts.js"></script>
+
+<script>
+    // 검색 버튼 클릭 시 동작
+    document.getElementById('searchButton').addEventListener('click', function () {
+        // 검색어 입력란의 값을 가져옴
+        const searchTerm = document.getElementById('searchInput').value;
+
+        // 검색어를 서버로 보내고 검색 결과 페이지로 리다이렉트 (URL 파라미터로 검색어 전달)
+        window.location.href = "{{ url_for('product.search') }}?search=" + searchTerm;
+    });
+</script>
+
+
+{% endblock %}

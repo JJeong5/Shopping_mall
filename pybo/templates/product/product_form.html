@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block content %}
+<!-- 질문 등록 -->
+<form method="post" class="my-3">
+    {{ form.csrf_token }}
+    <!-- 오류표시 Start -->
+    {% if form.errors %}
+    <div class="alert alert-danger" role="alert">
+        {% for field, errors in form.errors.items() %}
+        <strong>{{ form[field].label }}</strong>
+        <ul>
+            {% for error in errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+        {% endfor %}
+    </div>
+    {% endif %}
+    <!-- 오류표시 End -->
+    <div class="mb-3">
+        <label for="image">이미지</label>
+        <input type="text" class="form-control" name="image" id="image">
+    </div>
+    <div class="mb-3">
+        <label for="name">상품명</label>
+        <input type="text" class="form-control" name="name" id="name"></textarea>
+    </div>
+    <div class="mb-3">
+        <label for="price">가격</label>
+        <input type="text" class="form-control" name="price" id="price"></textarea>
+    </div>
+    <div class="mb-3">
+        <label for="description">상품 설명</label>
+        <textarea type="text" class="form-control" name="description" id="description" rows="10"></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary">저장하기</button>
+</form>
+</div>
+{% endblock %}
