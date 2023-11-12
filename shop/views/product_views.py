@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, url_for, g, flash, request
-from pybo.forms import ProductForm
+from shop.forms import ProductForm
 from werkzeug.utils import redirect
 from datetime import datetime
 from .. import db
