@@ -2,7 +2,7 @@
 Hybrid Cloud Engineer Training Course_Web_Project2
 
 ## Shopping Mall 사이트
-http://cafekiosk.pythonanywhere.com/
+http://EzyShop.pythonanywhere.com/
 
 # 프로젝트 소개
 * 처음 회원가입한 유저는 관리자 권한을 갖습니다. (1번 유저)
