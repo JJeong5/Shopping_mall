@@ -10,7 +10,7 @@ pipeline {
         ECR_IMAGE = 'shopping_mall'
         AWS_CREDENTIAL_ID = 'AWSCredentials'
         DOCKERHUB_USERNAME = 'jjeong5'
-        DOCKERHUB_REPO = 'jjeong5/jenkins'
+        DOCKERHUB_REPO = '/jenkins'
     }
     stages {
         stage('Clone Repository'){
