@@ -29,7 +29,7 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
-                        image.push("jjeong5/jenkins:latest")
+                        image.push("latest")
                     }
                 }
             }
