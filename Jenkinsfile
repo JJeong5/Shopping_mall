@@ -9,6 +9,8 @@ pipeline {
         ECR_PATH = '194453983284.dkr.ecr.ap-northeast-2.amazonaws.com'
         ECR_IMAGE = 'shopping_mall'
         AWS_CREDENTIAL_ID = 'AWSCredentials'
+        DOCKERHUB_USERNAME = 'jjeong5'
+        DOCKERHUB_REPO = 'jjeong5/jenkins'
     }
     stages {
         stage('Clone Repository'){
@@ -19,16 +21,14 @@ pipeline {
         stage('Docker Build'){
             steps {
                 script {
-                    docker.withRegistry("https://${ECR_PATH}", "ecr:${REGION}:${AWS_CREDENTIAL_ID}"){
-                        image = docker.build("${ECR_PATH}/${ECR_IMAGE}")
-                    }
+                    image = docker.build("${DOCKERHUB_USERNAME}/${DOCKERHUB_REPO}")
                 }
             }
         }
-        stage('Push to ECR'){
+        stage('Push to Docker Hub'){
             steps {
                 script {
-                    docker.withRegistry("https://${ECR_PATH}", "ecr:${REGION}:${AWS_CREDENTIAL_ID}"){
+                    docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
                         image.push("v${env.BUILD_NUMBER}")
                     }
                 }
@@ -37,8 +37,8 @@ pipeline {
         stage('CleanUp Images'){
             steps {
                 sh"""
-                docker rmi ${ECR_PATH}/${ECR_IMAGE}:v$BUILD_NUMBER
-                docker rmi ${ECR_PATH}/${ECR_IMAGE}:latest
+                docker rmi ${DOCKERHUB_USERNAME}/${DOCKERHUB_REPO}:v$BUILD_NUMBER
+                docker rmi ${DOCKERHUB_USERNAME}/${DOCKERHUB_REPO}:latest
                 """
             }
         }
