@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: springboot-app
-          image: jjeong5/jenkins:v1
+          image: 194453983284.dkr.ecr.ap-northeast-2.amazonaws.com/reca-ecr:v1
           imagePullPolicy: Always
           ports:
             -containerPort: 8080
