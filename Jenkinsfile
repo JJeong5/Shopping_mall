@@ -11,11 +11,13 @@ pipeline {
         AWS_CREDENTIAL_ID = 'AWSCredentials'
     }
     stages {
+
         stage('Clone Repository'){
             steps {
                 checkout scm
             }
         }
+
         stage('Docker Build'){
             steps {
                 script {
@@ -25,6 +27,7 @@ pipeline {
                 }
             }
         }
+
         stage('Push to ECR'){
             steps {
                 script {
@@ -34,14 +37,17 @@ pipeline {
                 }
             }
         }
+
         stage('CleanUp Images'){
             steps {
                 sh"""
                 docker rmi ${ECR_PATH}/${ECR_IMAGE}:v$BUILD_NUMBER
                 docker rmi ${ECR_PATH}/${ECR_IMAGE}:latest
+                export SHOPPING_VER = v${env.BUILD_NUMBER}
                 """
             }
         }
+
         stage('Deploy to k8s'){
             steps {
                 script {
@@ -56,5 +62,6 @@ pipeline {
                 }
             }
         }
+
     }
 }
