@@ -43,7 +43,7 @@ pipeline {
                 sh"""
                 docker rmi ${ECR_PATH}/${ECR_IMAGE}:v$BUILD_NUMBER
                 docker rmi ${ECR_PATH}/${ECR_IMAGE}:latest
-                export SHOPPING_VER = v${env.BUILD_NUMBER}
+                export SHOPPING_VER=v${env.BUILD_NUMBER}
                 """
             }
         }
