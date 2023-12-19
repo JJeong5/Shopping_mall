@@ -3,8 +3,8 @@ pipeline {
 
     environment{
         REGION = 'ap-northeast-2'
-        EKS_API = 'https://9BCA0CEB26E00BE8AD75E92BADC9CF5C.gr7.ap-northeast-2.eks.amazonaws.com'
-        EKS_CLUSTER_NAME = 'EksCluster'
+        EKS_API = 'https://341d92f58c4e3a4309266a05a8e60182.gr7.ap-northeast-2.eks.amazonaws.com/'
+        EKS_CLUSTER_NAME = 'Eks-Cluster'
         EKS_JENKINS_CREDENTIAL_ID = 'kubectl-deploy-credentials'
         ECR_PATH = '194453983284.dkr.ecr.ap-northeast-2.amazonaws.com'
         ECR_IMAGE = 'reca-ecr'
