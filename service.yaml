@@ -27,7 +27,7 @@ metadata:
   name: shopping-mall-service
 spec:
   type: ExternalName
-  externalName: AppALB-946271364.ap-northeast-2.elb.amazonaws.com
+  externalName: appalb-871955305.ap-northeast-2.elb.amazonaws.com
   ports:
     - protocol: TCP
       port: 80
