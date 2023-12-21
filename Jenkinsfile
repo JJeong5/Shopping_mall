@@ -56,6 +56,7 @@ pipeline {
                                     clusterName: "${EKS_CLUSTER_NAME}"]){
                                         sh "sed 's/\\\$SHOPPING_VER/v${env.BUILD_NUMBER}/g' service.yaml > output.yaml"
                                         sh "aws eks --region ${REGION} update-kubeconfig --name ${EKS_CLUSTER_NAME}"
+                                        sh "kubectl config use-context arn:aws:eks:ap-northeast-2:194453983284:cluster/Eks-Cluster"
                                         sh "kubectl apply -f output.yaml"
                                         sh "rm output.yaml"
 
