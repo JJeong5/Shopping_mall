@@ -26,9 +26,10 @@ kind: Service
 metadata:
   name: shopping-mall-service
 spec:
-  type: ExternalName
-  externalName: appalb-871955305.ap-northeast-2.elb.amazonaws.com
+  type: NodePort
   ports:
     - protocol: TCP
       port: 80
       targetPort: 8080
+  selector:
+    app: shopping-mall

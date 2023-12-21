@@ -3,7 +3,7 @@ pipeline {
 
     environment{
         REGION = 'ap-northeast-2'
-        EKS_API = 'https://341d92f58c4e3a4309266a05a8e60182.gr7.ap-northeast-2.eks.amazonaws.com/'
+        EKS_API = 'https://7a5e757692ef53832af1aecc6481b691.sk1.ap-northeast-2.eks.amazonaws.com/'
         EKS_CLUSTER_NAME = 'Eks-Cluster'
         EKS_JENKINS_CREDENTIAL_ID = 'kubectl-deploy-credentials'
         ECR_PATH = '194453983284.dkr.ecr.ap-northeast-2.amazonaws.com'
@@ -58,6 +58,11 @@ pipeline {
                                         sh "aws eks --region ${REGION} update-kubeconfig --name ${EKS_CLUSTER_NAME}"
                                         sh "kubectl apply -f output.yaml"
                                         sh "rm output.yaml"
+
+                                        sh "sed 's/\\\$SHOPPING_VER/v${env.BUILD_NUMBER}/g' ingress.yaml > output-ingress.yaml"
+                                        sh "kubectl apply -f output-ingress.yaml"
+                                        sh "rm output-ingress.yaml"
+
                     }
                 }
             }
