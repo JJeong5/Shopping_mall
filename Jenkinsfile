@@ -3,8 +3,8 @@ pipeline {
 
     environment{
         REGION = 'ap-northeast-2'
-        EKS_API = 'https://7a5e757692ef53832af1aecc6481b691.sk1.ap-northeast-2.eks.amazonaws.com/'
-        EKS_CLUSTER_NAME = 'Eks-Cluster'
+        EKS_API = 'https://52f04e709d1fda6dbf8f7e3e8499c672.gr7.ap-northeast-2.eks.amazonaws.com/'
+        EKS_CLUSTER_NAME = 'test-cluster'
         EKS_JENKINS_CREDENTIAL_ID = 'kubectl-deploy-credentials'
         ECR_PATH = '194453983284.dkr.ecr.ap-northeast-2.amazonaws.com'
         ECR_IMAGE = 'reca-ecr'
@@ -56,7 +56,7 @@ pipeline {
                                     clusterName: "${EKS_CLUSTER_NAME}"]){
                                         sh "sed 's/\\\$SHOPPING_VER/v${env.BUILD_NUMBER}/g' service.yaml > output.yaml"
                                         sh "aws eks --region ${REGION} update-kubeconfig --name ${EKS_CLUSTER_NAME}"
-                                        sh "kubectl config use-context arn:aws:eks:ap-northeast-2:194453983284:cluster/Eks-Cluster"
+                                        sh "kubectl config use-context arn:aws:eks:ap-northeast-2:194453983284:cluster/test-cluster"
                                         sh "kubectl apply -f output.yaml"
                                         sh "rm output.yaml"
 
