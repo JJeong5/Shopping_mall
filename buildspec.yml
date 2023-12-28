@@ -10,6 +10,7 @@ phases:
   # In the buildspec.yml or your build script
   pre_build:
     commands:
+      - echo $HOME
       - sudo yum -y install zip
       - echo 'export SDKMAN_DIR="$HOME/.sdkman"\
         [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"' >> ~/.bashrc
