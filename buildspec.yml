@@ -7,8 +7,12 @@ env:
     IMAGE_REPO_NAME: "myreca"
     IMAGE_TAG: $CODEBUILD_RESOLVED_SOURCE_VERSION
 phases:
+  # In the buildspec.yml or your build script
   pre_build:
     commands:
+      - curl -s "https://get.sdkman.io/" | bash
+      - source "$HOME/.sdkman/bin/sdkman-init.sh"
+      - sdk install gradle
       - echo Logging in to Amazon ECR...
       - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
   build:
