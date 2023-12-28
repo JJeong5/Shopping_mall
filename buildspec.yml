@@ -11,8 +11,10 @@ phases:
   pre_build:
     commands:
       - sudo yum -y install zip
+      - echo 'export SDKMAN_DIR="$HOME/.sdkman"\
+        [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"' >> ~/.bashrc
       - curl -s "https://get.sdkman.io/" | bash
-      - source "/root/.sdkman/bin/sdkman-init.sh"
+      - source "$HOME/.sdkman/bin/sdkman-init.sh"
       - sdk install gradle
       - echo Logging in to Amazon ECR...
       - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
