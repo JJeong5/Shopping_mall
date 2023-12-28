@@ -10,6 +10,7 @@ phases:
   # In the buildspec.yml or your build script
   pre_build:
     commands:
+      - sudo yum -y install zip
       - curl -s "https://get.sdkman.io/" | bash
       - source "$HOME/.sdkman/bin/sdkman-init.sh"
       - sdk install gradle
