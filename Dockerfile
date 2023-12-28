@@ -1,5 +1,5 @@
 # Python 이미지를 기반으로 합니다.
-FROM python:3.8-slim-buster
+FROM public.ecr.aws/docker/library/python:3.10-slim
 
 # 작업 디렉터리를 설정합니다.
 WORKDIR /app
